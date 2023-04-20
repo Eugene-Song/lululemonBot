@@ -1,13 +1,28 @@
 import time
-from bs4 import BeautifulSoup
+import sys
 import pyautogui
-import pytesseract
 import cv2
 import webbrowser
 
 # Replace these with your own credentials and target URL
-product_url = "https://shop.lululemon.com/p/women-pants/Softstreme-HR-Pant/_/prod11020340?color=31382&sz=0&tasid=WiYzSApHiR&taterm=soft"
-cvv = "123"
+# if len(sys.argv) < 2:
+#     print("Usage: python process_url.py <url>")
+#     sys.exit(1)
+# product_url = sys.argv[1]
+
+with open('../url.txt', 'r') as file:
+    for line in file:
+        product_url = line.strip()
+        if product_url == '':
+            print("No URL found in url.txt, exiting...")
+            exit(1)
+# product_url = "https://shop.lululemon.com/p/women-pants/Softstreme-HR-Pant/_/prod11020340?color=31382&sz=0&tasid=WiYzSApHiR&taterm=soft"
+with open('../cvv.txt', 'r') as file:
+    for line in file:
+        cvv = line.strip()
+        if cvv == '':
+            print("No CVV found in cvv.txt, exiting...")
+            exit(1)
 
 def check_stock_status():
     time.sleep(8)
@@ -123,8 +138,5 @@ try:
             webbrowser.open_new_tab(product_url)
 
             # webbrowser.get(chrome_path).open_new_tab(product_url)
-
-            
-
 finally:
     print("Script terminated.")
